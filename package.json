@@ -1,0 +1,20 @@
+{
+  "name": "azdevs.org",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/azdevs/azdevs.org",
+  "author": "Kevin Lanni <therealklanni@gmail.com> (https://github.com/therealklanni)",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "husky": "^1.3.1"
+  }
+}
