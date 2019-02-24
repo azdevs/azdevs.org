@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "azdevs-org",
+    "staging": "azdevs-staging"
+  }
+}
