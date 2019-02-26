@@ -11,7 +11,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.11.2
-    parallelism: 1
     steps:
       - checkout
       - restore_cache:
@@ -25,9 +24,39 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: dist
+  unit:
+    docker:
+      - image: circleci/node:8.11.2
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run: yarn test:unit
+  e2e:
+    docker:
+      - image: circleci/node:8.11.2
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run: yarn test:e2e
 
 workflows:
   version: 2
+  test:
+    jobs:
+      - unit
+      - e2e
   build-and-deploy:
     jobs:
       - build
