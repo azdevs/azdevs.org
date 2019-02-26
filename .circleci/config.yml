@@ -1,0 +1,39 @@
+version: 2.1
+orbs:
+  firebase-deploy: cloudliner/firebase-deploy@0.0.2
+jobs:
+  deploy:
+    docker:
+      - image: circleci/node:8.11.2
+    steps:
+      - firebase-deploy/deploy:
+          token: $FIREBASE_DEPLOY_TOKEN
+  build:
+    docker:
+      - image: circleci/node:8.11.2
+    parallelism: 1
+    steps:
+      - checkout
+      - restore_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+      - run: yarn install
+      - save_cache:
+          key: v1-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run: yarn build
+      - persist_to_workspace:
+          root: .
+          paths: dist
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
