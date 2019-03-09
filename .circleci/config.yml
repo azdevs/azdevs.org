@@ -4,7 +4,7 @@ orbs:
 jobs:
   deploy-staging:
     docker:
-      - image: circleci/node:8.11.2
+      - image: circleci/node:lts
     steps:
       - attach_workspace:
           at: .
@@ -13,7 +13,7 @@ jobs:
           alias: staging
   build:
     docker:
-      - image: circleci/node:8.11.2
+      - image: circleci/node:lts
     steps:
       - checkout
       - restore_cache:
@@ -34,7 +34,7 @@ jobs:
             - firestore.indexes.json
   unit:
     docker:
-      - image: circleci/node:8.11.2
+      - image: circleci/node:lts
     steps:
       - checkout
       - restore_cache:
@@ -47,7 +47,7 @@ jobs:
       - run: yarn test:unit
   e2e:
     docker:
-      - image: circleci/node:8.11.2
+      - image: circleci/node:lts
     steps:
       - checkout
       - restore_cache:
