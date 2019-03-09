@@ -6,6 +6,8 @@ jobs:
     docker:
       - image: circleci/node:8.11.2
     steps:
+      - attach_workspace:
+          at: .
       - firebase-deploy/deploy:
           token: $FIREBASE_DEPLOY_TOKEN
           alias: staging
