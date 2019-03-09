@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  firebase-deploy: azdevs/firebase-deploy@dev:first
+  firebase-deploy: azdevs/firebase-deploy@1.0.0
 jobs:
   deploy-staging:
     docker:
