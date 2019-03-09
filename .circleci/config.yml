@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   firebase-deploy: azdevs/firebase-deploy@dev:first
 jobs:
-  deploy:
+  deploy-staging:
     docker:
       - image: circleci/node:8.11.2
     steps:
@@ -65,12 +65,12 @@ workflows:
     jobs:
       - unit
       # - e2e
-  build-and-deploy:
+  build-and-deploy-staging:
     jobs:
       - build
-      - deploy:
+      - deploy-staging:
           requires:
             - build
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              ignore: master
