@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  firebase-deploy: cloudliner/firebase-deploy@0.0.2
+  firebase-deploy: azdevs/firebase-deploy@dev:first
 jobs:
   deploy:
     docker:
@@ -8,6 +8,7 @@ jobs:
     steps:
       - firebase-deploy/deploy:
           token: $FIREBASE_DEPLOY_TOKEN
+          alias: staging
   build:
     docker:
       - image: circleci/node:8.11.2
@@ -23,7 +24,10 @@ jobs:
       - run: yarn build
       - persist_to_workspace:
           root: .
-          paths: dist
+          paths:
+            - dist
+            - firebase.json
+            - .firebaserc
   unit:
     docker:
       - image: circleci/node:8.11.2
