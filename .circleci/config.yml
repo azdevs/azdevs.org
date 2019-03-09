@@ -30,6 +30,8 @@ jobs:
             - dist
             - firebase.json
             - .firebaserc
+            - firebase.rules
+            - firebase.index.json
   unit:
     docker:
       - image: circleci/node:8.11.2
