@@ -58,6 +58,9 @@ jobs:
           paths:
             - ./node_modules
       - run: yarn test:e2e
+      - store_artifacts:
+          path: tests/e2e/videos/test.js.mp4
+          destination: video
 
 workflows:
   version: 2
