@@ -57,20 +57,21 @@ jobs:
           key: v1-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-      - run: yarn test:e2e
+      - run: yarn test:e2e:ci
       - store_artifacts:
           path: tests/e2e/videos/test.js.mp4
           destination: video
 
 workflows:
   version: 2
-  test:
+  build-and-deploy-staging:
     jobs:
       - unit
       - e2e
-  build-and-deploy-staging:
-    jobs:
-      - build
+      - build:
+          requires:
+            - unit
+            - e2e
       - deploy-staging:
           requires:
             - build
