@@ -64,7 +64,7 @@ workflows:
   test:
     jobs:
       - unit
-      # - e2e
+      - e2e
   build-and-deploy-staging:
     jobs:
       - build
